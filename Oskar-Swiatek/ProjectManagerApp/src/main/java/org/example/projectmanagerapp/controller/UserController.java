@@ -2,6 +2,7 @@ package org.example.projectmanagerapp.controller;
 
 import org.example.projectmanagerapp.entity.user.User;
 import org.example.projectmanagerapp.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Tag(name = "Users", description = "Operations related to users")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 public class UserController {
 
     private  final UserService userService;
@@ -52,5 +53,11 @@ public class UserController {
     @Parameter(description = "ID of the user to be deleted.")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
+    }
+
+    @Operation(summary = "User dashboard – returns logged-in user info")
+    @GetMapping("/dashboard")
+    public String getDashboard(@AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
+        return "👋 Hello, " + currentUser.getUsername() + "! Welcome to your dashboard.";
     }
 }
