@@ -1,11 +1,10 @@
 package org.example.projectmanagerapp.entity.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.projectmanagerapp.entity.project.Project;
+import org.example.projectmanagerapp.entity.enums.UserRole;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +22,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @ManyToMany(mappedBy = "assignedUsers")
-    @JsonIgnoreProperties("assignedUsers")
-    private Set<Project> projects = new HashSet<>();
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
 }
