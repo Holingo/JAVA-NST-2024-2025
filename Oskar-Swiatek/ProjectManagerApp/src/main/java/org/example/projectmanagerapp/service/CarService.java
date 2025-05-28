@@ -24,7 +24,7 @@ public class CarService {
     }
 
     public Car createCar(Car car) {
-        if (carRepository.findByRegistrationNumber(car.getRegistrationNumber()).isEmpty()) {
+        if (carRepository.findByRegistrationNumber(car.getRegistrationNumber()).isPresent()) {
             throw new RuntimeException("Car with this registration number already exists.");
         }
         return carRepository.save(car);
