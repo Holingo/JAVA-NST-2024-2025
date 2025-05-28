@@ -21,7 +21,7 @@ public class Car {
     @Column(nullable = false)
     private String model;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "registration_number", nullable = false, unique = true)
     private String registrationNumber;
 
     @Column(nullable = false)
