@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script>
+        function toggleFields() {
+            const type = document.querySelector('[name="userType"]').value;
+            document.getElementById("private-fields").style.display = (type === "PRIVATE") ? "block" : "none";
+            document.getElementById("company-fields").style.display = (type === "COMPANY") ? "block" : "none";
+        }
+    </script>
 </head>
-<body>
-$END$
+<body onload="toggleFields()">
+    <h1>User registration</h1>
+
+    <form method="post" action="/register">
+        <label>Type the user select:</label>
+        <select name="userType" onchange="toggleFields()" required>
+            <option value="PRIVATE">Private person</option>
+            <option value="COMPANY">Company</option>
+        </select><br/><br/>
+
+        <label>Username: <input type="text" name="username" required></label><br/>
+        <label>Password: <input type="password" name="password" required></label><br/><br/>
+
+        <!-- Data for private person -->
+        <fieldset id="private-fields">
+            <legend>Data person</legend>
+            <label>First name: <input type="text" name="firstName"></label><br/>
+            <label>Last name: <input type="text" name="lastName"></label><br/>
+            <label>E-mail: <input type="text" name="email"></label><br/>
+            <label>Gender: <select name="gender">
+                <option value="Man">Man</option>
+                <option value="Women">Women</option>
+            </select></label><br/>
+            <label>Data of birth: <input type="date" name="dateOfBirth"></label><br/>
+            <label>PESEL: <input type="text" name="pesel"></label><br/>
+            <label>ID card number: <input type="text" name="idCardNumber"></label><br/>
+            <label>Driving license number: <input type="text" name="drivingLicenseNumber"></label><br/>
+            <label>Phone number: <input type="number" name="phoneNumber"></label><br/>
+        </fieldset><br/>
+
+        <!-- Data for Company -->
+        <fieldset id="company-fields">
+            <legend>Data company</legend>
+            <label>Name company: <input type="text" name="companyName"/></label><br/>
+            <label>NIP: <input type="text" name="taxId"/></label><br/>
+            <label>REGON: <input type="text" name="regon"/></label><br/>
+            <label>KRS: <input type="text" name="krs"/></label><br/>
+            <label>Contact person: <input type="text" name="contactPerson"/></label><br/>
+            <label>Contact e-mail: <input type="email" name="contactEmail"/></label><br/>
+            <label>Contact number: <input type="text" name="contactPhone"/></label><br/>
+        </fieldset><br/>
+
+        <!-- Address -->
+        <fieldset>
+            <legend>Address</legend>
+            <label>Building number: <input type="text" name="address.houseNumber"/></label><br/>
+            <label>Street: <input type="text" name="address.street"/></label><br/>
+            <label>City: <input type="text" name="address.city"/></label><br/>
+            <label>State: <input type="text" name="address.state"/></label><br/>
+            <label>ZIP Code: <input type="text" name="address.zipCode"/></label><br/>
+            <label>Country: <input type="text" name="address.country"/></label><br/>
+        </fieldset><br/>
+
+        <button type="submit">Sign up</button>
+    </form>
+
 </body>
 </html>
