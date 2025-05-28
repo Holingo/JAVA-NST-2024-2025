@@ -1,35 +1,22 @@
 package org.example.projectmanagerapp.controller;
 
-import org.example.projectmanagerapp.entity.enums.UserRole;
+import lombok.RequiredArgsConstructor;
+import org.example.projectmanagerapp.dto.UserRegistrationDto;
 import org.example.projectmanagerapp.entity.user.User;
-import org.example.projectmanagerapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.example.projectmanagerapp.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-            return "User already exists";
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.USER); // default role in project
-        userRepository.save(user);
-
-        return "User registered successfully";
+    public ResponseEntity<String> register(@RequestBody UserRegistrationDto dto) {
+        User registered = userService.registerUser(dto);
+        return ResponseEntity.ok("User registered: " + registered.getUsername());
     }
 }
