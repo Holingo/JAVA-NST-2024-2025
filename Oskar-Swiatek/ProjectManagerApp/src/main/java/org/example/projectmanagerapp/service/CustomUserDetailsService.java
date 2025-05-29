@@ -1,5 +1,6 @@
 package org.example.projectmanagerapp.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.projectmanagerapp.entity.user.User;
 import org.example.projectmanagerapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

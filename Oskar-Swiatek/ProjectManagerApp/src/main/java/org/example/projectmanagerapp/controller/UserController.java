@@ -54,10 +54,4 @@ public class UserController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
-
-    @Operation(summary = "User dashboard – returns logged-in user info")
-    @GetMapping("/dashboard")
-    public String getDashboard(@AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
-        return "👋 Hello, " + currentUser.getUsername() + "! Welcome to your dashboard.";
-    }
 }
