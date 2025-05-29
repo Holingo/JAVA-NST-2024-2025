@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne(optional = false)
     private CarModel carModel;
