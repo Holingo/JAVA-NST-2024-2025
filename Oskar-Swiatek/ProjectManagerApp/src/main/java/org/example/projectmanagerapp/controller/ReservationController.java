@@ -34,12 +34,13 @@ public class ReservationController {
     @Operation(summary = "Create reservation")
     @PostMapping
     public Reservation createReservation(
-            @AuthenticationPrincipal UserDetails currentUser,
+            Authentication authentication,
             @RequestParam Long carId,
             @RequestParam String start,
             @RequestParam String end
     ) {
-        Long userId = userService.getByUsername(currentUser.getUsername()).getId();
+        String username = authentication.getName();
+        Long userId = userService.getByUsername(username).getId();
         LocalDateTime startTime = LocalDateTime.parse(start);
         LocalDateTime endTime = LocalDateTime.parse(end);
 
@@ -48,17 +49,21 @@ public class ReservationController {
 
     @Operation(summary = "Get my reservations")
     @GetMapping("/my")
-    public List<Reservation> getMyReservations(@AuthenticationPrincipal UserDetails currentUser) {
-        Long userId = userService.getByUsername(currentUser.getUsername()).getId();
+    public List<Reservation> getMyReservations(Authentication authentication) {
+        String username = authentication.getName();
+        Long userId = userService.getByUsername(username).getId();
         return reservationService.getActiveReservationsByUser(userId);
     }
 
+
     @Operation(summary = "Get all active reservations")
     @GetMapping("/my/active")
-    public List<Reservation> getMyActiveReservations(@AuthenticationPrincipal UserDetails currentUser) {
-        Long userId = userService.getByUsername(currentUser.getUsername()).getId();
+    public List<Reservation> getMyActiveReservations(Authentication authentication) {
+        String username = authentication.getName();
+        Long userId = userService.getByUsername(username).getId();
         return reservationService.getActiveReservationsByUser(userId);
     }
+
 
     @Operation(summary = "My reservation history")
     @GetMapping("/my/history")
