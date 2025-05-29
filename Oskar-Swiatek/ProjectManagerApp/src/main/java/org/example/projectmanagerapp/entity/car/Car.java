@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "cars")
 @Getter
@@ -15,14 +17,14 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    private String brand;
+    @ManyToOne(optional = false)
+    private CarModel carModel;
 
-    @Column(nullable = false)
-    private String model;
-
-    @Column(name = "registration_number", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String registrationNumber;
+
+    @Column(nullable = false)
+    private BigDecimal pricePerDay;
 
     @Column(nullable = false)
     private boolean available = true;

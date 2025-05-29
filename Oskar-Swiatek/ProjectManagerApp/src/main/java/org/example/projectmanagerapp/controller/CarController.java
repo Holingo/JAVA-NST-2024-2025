@@ -2,8 +2,10 @@ package org.example.projectmanagerapp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.projectmanagerapp.dto.CarRequestDto;
 import org.example.projectmanagerapp.entity.car.Car;
 import org.example.projectmanagerapp.service.CarService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +36,9 @@ public class CarController {
 
     @Operation(summary = "Create a new car")
     @PostMapping
-    public Car createCar(@RequestBody Car car) {
-        return carService.createCar(car);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Car> createCar(@RequestBody CarRequestDto dto) {
+        return ResponseEntity.ok(carService.createCar(dto));
     }
 
     @Operation(summary = "Update an existing car")
