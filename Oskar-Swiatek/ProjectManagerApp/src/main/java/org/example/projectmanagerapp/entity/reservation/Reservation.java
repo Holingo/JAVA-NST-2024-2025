@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.projectmanagerapp.entity.billing.Invoice;
+import org.example.projectmanagerapp.entity.billing.Receipt;
 import org.example.projectmanagerapp.entity.car.Car;
 import org.example.projectmanagerapp.entity.enums.ReservationStatus;
 import org.example.projectmanagerapp.entity.user.User;
@@ -36,4 +38,10 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ReservationStatus status;
+
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
+    private Invoice invoice;
+
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
+    private Receipt receipt;
 }
