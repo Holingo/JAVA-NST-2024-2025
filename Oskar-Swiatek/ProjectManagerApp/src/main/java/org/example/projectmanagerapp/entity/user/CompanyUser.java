@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.projectmanagerapp.entity.common.Address;
-import org.example.projectmanagerapp.entity.invoice.Invoice;
+import org.example.projectmanagerapp.entity.billing.Invoice;
 
 import java.util.List;
 
