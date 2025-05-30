@@ -106,7 +106,7 @@ CREATE TABLE receipt (
     reservation_id BIGINT UNIQUE,
     FOREIGN KEY (id) REFERENCES billing_document(id),
     FOREIGN KEY (private_user_id) REFERENCES users(id),
-    FOREIGN KEY (reservation_id) REFERENCES reservation(id)
+    FOREIGN KEY (reservation_id) REFERENCES reservations(id)
 );
 
 -- Invoice inherits billing_document
@@ -117,5 +117,5 @@ CREATE TABLE invoice (
     reservation_id BIGINT UNIQUE,
     FOREIGN KEY (id) REFERENCES billing_document(id),
     FOREIGN KEY (company_user_id) REFERENCES users(id),
-    FOREIGN KEY (reservation_id) REFERENCES reservation(id)
+    FOREIGN KEY (reservation_id) REFERENCES reservations(id)
 );
